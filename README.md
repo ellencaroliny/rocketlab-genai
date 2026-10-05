@@ -49,7 +49,7 @@ Em resumo: o **modelo** traduz a pergunta em SQL, a **ferramenta `run_sql`** exe
 |---|---|---|
 | **Python 3.10 ou superior** | rodar o projeto | `python --version` |
 | **Git** | baixar o projeto | `git --version` |
-| **Arquivo `cinerocket.db`** | dados da camada Gold (fornecido na pasta compartilhada da atividade, dentro do `cinerocket-db.zip`) | ~580 MB depois de descompactado |
+| **Git LFS** | baixar o banco `cinerocket.db` (~580 MB) versionado no repositório | `git lfs version` |
 | **Conta no OpenRouter** | chave de API para usar os modelos gratuitos | gratuita, sem cartão |
 
 ## 3. Passo a passo para executar
@@ -91,13 +91,19 @@ pip install -r requirements.txt
 
 Isso instala o `strands-agents` (com suporte a modelos compatíveis com a API da OpenAI, como o OpenRouter) e o `python-dotenv` (leitura do arquivo `.env`).
 
-### Passo 4 — Colocar o banco de dados na pasta do projeto
+### Passo 4 — Conferir o banco de dados
 
-1. Descompacte o `cinerocket-db.zip`.
-2. Copie o arquivo `.db` para a raiz do projeto (a mesma pasta deste README).
-3. Renomeie-o para **`cinerocket.db`**.
+O `cinerocket.db` (~580 MB) está versionado com **[Git LFS](https://git-lfs.com)**, porque o GitHub não aceita arquivos comuns acima de 100 MB. Por isso, o **Git LFS precisa estar instalado antes do `git clone`** (Passo 1): ele já vem com o Git para Windows; em outros sistemas, instale e rode `git lfs install` uma vez.
 
-> O banco não está no repositório por ser muito grande (~580 MB). Se preferir deixá-lo em outro lugar, informe o caminho em `CINEROCKET_DB` no `.env` (Passo 5).
+Depois do clone, confirme que o arquivo veio completo:
+
+```bash
+git lfs pull          # baixa o banco, caso o clone tenha trazido só um ponteiro
+```
+
+O arquivo `cinerocket.db` deve ter ~580 MB. Se tiver poucos bytes, é só o ponteiro do LFS: rode o comando acima.
+
+> Alternativa: se preferir usar o banco de outro lugar, informe o caminho em `CINEROCKET_DB` no `.env` (Passo 5). O banco também pode ser obtido no `cinerocket-db.zip` da pasta compartilhada da atividade.
 
 ### Passo 5 — Criar a chave do OpenRouter e configurar o `.env`
 
